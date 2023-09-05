@@ -1,6 +1,6 @@
 # 4-testing-n-types
 
-- Start med `3-refactoring.js` fra `1-testing`, endre koden og testene til typescript, og sørg for at testene fortsatt passerer.
+- Start med `3-refactor.js`, endre koden og testene til typescript, og sørg for at testene fortsatt passerer.
 - Lag en commit slik som koden ser ut nå.
 - Lag separate branches for å løse de to følgende oppgavene.
 - Oppgave 1:

@@ -1,6 +1,7 @@
-import { createSurvey, getSurveys } from './3-refactor'
+import {createSurvey, getSurveys} from './3-refactor'
 
 let surveyNumber = 0
+
 function createValidSurveyName() {
   surveyNumber++
   return `Survey ${surveyNumber}`
@@ -43,82 +44,93 @@ it('should not add a survey with a name that is not a string', () => {
 
 it('should not add a question that is not an object to a survey', () => {
   const name = createValidSurveyName()
-  expect(createSurvey(name, [123])).toBeInstanceOf(Error)
+  const result = createSurvey(name, [123])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should not add a question without a question property to a survey', () => {
   const name = createValidSurveyName()
-  expect(createSurvey(name, [{}])).toBeInstanceOf(Error)
+  const result = createSurvey(name, [{}])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
+
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should not add a question with a question property that is not a string to a survey', () => {
   const name = createValidSurveyName()
-  expect(createSurvey(name, [{ question: 123 }])).toBeInstanceOf(Error)
+  const result = createSurvey(name, [{question: 123}])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should not add a question without an answers property to a survey', () => {
   const name = createValidSurveyName()
-  expect(createSurvey(name, [{ question: 'How are you?' }])).toBeInstanceOf(
-    Error,
-  )
+  const result = createSurvey(name, [{question: 'How are you?'}])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
+
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should not add a question with an answers property that is not an array to a survey', () => {
   const name = createValidSurveyName()
-  expect(
-    createSurvey(name, [{ question: 'How are you?', answers: 123 }]),
-  ).toBeInstanceOf(Error)
+  const result = createSurvey(name, [{question: 'How are you?', answers: 123}])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
+
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should not add a question with an answers property that has less than 2 answers to a survey', () => {
   const name = createValidSurveyName()
-  expect(
-    createSurvey(name, [{ question: 'How are you?', answers: ['Good'] }]),
-  ).toBeInstanceOf(Error)
+  const result = createSurvey(name, [{question: 'How are you?', answers: ['Good']}])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
+
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should not add a question with an answers property that has answers that are not strings to a survey', () => {
   const name = createValidSurveyName()
-  expect(
-    createSurvey(name, [{ question: 'How are you?', answers: [123, 456] }]),
-  ).toBeInstanceOf(Error)
+  const result =
+    createSurvey(name, [{question: 'How are you?', answers: [123, 456]}])
+  expect(Array.isArray(result)).toBe(true)
+  expect(result.every(error => expect(error).toBeInstanceOf(Error)))
 
   const surveys = getSurveys()
-  expect(surveys).toContainEqual({ name, questions: [] })
+  expect(surveys).toContainEqual({name, questions: []})
 })
 
 it('should add a question with a question and answers property to a survey', () => {
   const name = createValidSurveyName()
   expect(
     createSurvey(name, [
-      { question: 'How are you?', answers: ['Good', 'Bad'] },
+      {question: 'How are you?', answers: ['Good', 'Bad']},
     ]),
   ).toEqual({
     name,
-    questions: [{ question: 'How are you?', answers: ['Good', 'Bad'] }],
+    questions: [{question: 'How are you?', answers: ['Good', 'Bad']}],
   })
 
   const surveys = getSurveys()
   expect(surveys).toContainEqual({
     name,
-    questions: [{ question: 'How are you?', answers: ['Good', 'Bad'] }],
+    questions: [{question: 'How are you?', answers: ['Good', 'Bad']}],
   })
 })
